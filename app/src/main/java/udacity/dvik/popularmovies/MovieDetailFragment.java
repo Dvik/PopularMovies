@@ -54,11 +54,10 @@ public class MovieDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.movie_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
         if (movie != null) {
             ((TextView) rootView.findViewById(R.id.movie_detail)).setText(movie.getOverview());
-            ((TextView) rootView.findViewById(R.id.rating)).setText("Rating "+String.valueOf(movie.getVoteAverage()));
-            ((TextView) rootView.findViewById(R.id.release_date)).setText("Release Date "+movie.getReleaseDate());
+            ((TextView) rootView.findViewById(R.id.rating)).setText(String.format("%s%s", getString(R.string.rating), String.valueOf(movie.getVoteAverage())));
+            ((TextView) rootView.findViewById(R.id.release_date)).setText(String.format("%s%s", getString(R.string.release), movie.getReleaseDate()));
         }
 
         return rootView;

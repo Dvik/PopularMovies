@@ -49,16 +49,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
 
     @Override
-    public void onBindViewHolder(MovieViewHolder holder, final int position) {
+    public void onBindViewHolder(final MovieViewHolder holder, int position) {
         Picasso.with(context)
-                .load("http://image.tmdb.org/t/p/w185/"+movies.get(position).getPosterPath())
+                .load(Constants.BASE_PIC_URL+movies.get(position).getPosterPath())
                 .into(holder.moviePoster);
 
         holder.moviePoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context,MovieDetailActivity.class);
-                i.putExtra(Constants.MOVIE_ITEM,(Parcelable)movies.get(position));
+                i.putExtra(Constants.MOVIE_ITEM,(Parcelable)movies.get(holder.getAdapterPosition()));
 
                 context.startActivity(i);
             }

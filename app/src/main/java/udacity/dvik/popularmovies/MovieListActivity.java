@@ -1,10 +1,7 @@
 package udacity.dvik.popularmovies;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -90,16 +87,15 @@ public class MovieListActivity extends AppCompatActivity {
         Call<MovieResponseModel> call;
 
         if (value.equals("0")) {
-            call = apiService.getPopularMovies(getString(R.string.api_key));
+            call = apiService.getPopularMovies(Constants.API_KEY);
         } else {
-            call = apiService.getTopRatedMovies(getString(R.string.api_key));
+            call = apiService.getTopRatedMovies(Constants.API_KEY);
         }
 
         call.enqueue(new Callback<MovieResponseModel>() {
             @Override
             public void onResponse(Call<MovieResponseModel> call, Response<MovieResponseModel> response) {
                 progressBar.setVisibility(View.GONE);
-                int statusCode = response.code();
                 List<MovieModel> movies = response.body().getResults();
                 recyclerView.setAdapter(new MovieAdapter(movies, MovieListActivity.this));
 

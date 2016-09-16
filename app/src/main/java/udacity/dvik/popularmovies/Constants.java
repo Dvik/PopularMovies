@@ -8,4 +8,8 @@ public class Constants {
 
     public static final String MOVIE_ITEM = "MovieObject";
 
+    public static final String BASE_PIC_URL = "http://image.tmdb.org/t/p/w185/";
+
+    public static final String API_KEY = "API_KEY";
+
 }
