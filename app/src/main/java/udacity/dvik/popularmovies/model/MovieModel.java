@@ -1,5 +1,8 @@
 package udacity.dvik.popularmovies.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -9,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Divya on 9/15/2016.
  */
 
-public class MovieModel {
+public class MovieModel implements Parcelable{
 
     @SerializedName("poster_path")
     @Expose
@@ -61,23 +64,6 @@ public class MovieModel {
     public MovieModel() {
     }
 
-    /**
-     *
-     * @param id
-     * @param genreIds
-     * @param title
-     * @param releaseDate
-     * @param overview
-     * @param posterPath
-     * @param originalTitle
-     * @param voteAverage
-     * @param originalLanguage
-     * @param adult
-     * @param backdropPath
-     * @param voteCount
-     * @param video
-     * @param popularity
-     */
     public MovieModel(String posterPath, Boolean adult, String overview, String releaseDate, List<Integer> genreIds, Integer id, String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity, Integer voteCount, Boolean video, Double voteAverage) {
         this.posterPath = posterPath;
         this.adult = adult;
@@ -94,6 +80,29 @@ public class MovieModel {
         this.video = video;
         this.voteAverage = voteAverage;
     }
+
+    protected MovieModel(Parcel in) {
+        posterPath = in.readString();
+        overview = in.readString();
+        releaseDate = in.readString();
+        originalTitle = in.readString();
+        originalLanguage = in.readString();
+        title = in.readString();
+        backdropPath = in.readString();
+        voteAverage = in.readDouble();
+    }
+
+    public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
+        @Override
+        public MovieModel createFromParcel(Parcel in) {
+            return new MovieModel(in);
+        }
+
+        @Override
+        public MovieModel[] newArray(int size) {
+            return new MovieModel[size];
+        }
+    };
 
     /**
      *
@@ -347,4 +356,20 @@ public class MovieModel {
         this.voteAverage = voteAverage;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(posterPath);
+        parcel.writeString(overview);
+        parcel.writeString(releaseDate);
+        parcel.writeString(originalTitle);
+        parcel.writeString(originalLanguage);
+        parcel.writeString(title);
+        parcel.writeString(backdropPath);
+        parcel.writeDouble(voteAverage);
+    }
 }

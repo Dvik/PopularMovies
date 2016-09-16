@@ -13,5 +13,8 @@ import udacity.dvik.popularmovies.model.MovieResponseModel;
 public interface MovieAPI {
 
     @GET("movie/popular")
+    Call<MovieResponseModel> getPopularMovies(@Query("api_key") String apiKey);
+
+    @GET("movie/top_rated")
     Call<MovieResponseModel> getTopRatedMovies(@Query("api_key") String apiKey);
 }

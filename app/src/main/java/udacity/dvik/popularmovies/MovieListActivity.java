@@ -1,15 +1,21 @@
 package udacity.dvik.popularmovies;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,6 +36,7 @@ public class MovieListActivity extends AppCompatActivity {
     GridLayoutManager gridLayoutManager;
     ProgressBar progressBar;
     TextView fail_tv;
+    String value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,10 @@ public class MovieListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+
+        value = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext())
+                .getString("example_list", "0");
 
         View recyclerView = findViewById(R.id.movie_list);
         assert recyclerView != null;
@@ -72,10 +83,18 @@ public class MovieListActivity extends AppCompatActivity {
         });
         recyclerView.setLayoutManager(gridLayoutManager);
 
+
         MovieAPI apiService =
                 MovieDataClient.getClient().create(MovieAPI.class);
 
-        Call<MovieResponseModel> call = apiService.getTopRatedMovies(getString(R.string.api_key));
+        Call<MovieResponseModel> call;
+
+        if (value.equals("0")) {
+            call = apiService.getPopularMovies(getString(R.string.api_key));
+        } else {
+            call = apiService.getTopRatedMovies(getString(R.string.api_key));
+        }
+
         call.enqueue(new Callback<MovieResponseModel>() {
             @Override
             public void onResponse(Call<MovieResponseModel> call, Response<MovieResponseModel> response) {
@@ -96,4 +115,18 @@ public class MovieListActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = new MenuInflater(this);
+        menuInflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

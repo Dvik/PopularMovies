@@ -1,9 +1,37 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/movie_detail"
-    style="?android:attr/textAppearanceLarge"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
     android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="udacity.dvik.popularmovies.MovieDetailFragment" />
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/rating"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        tools:text="Rating 3/5" />
+
+    <TextView
+        android:id="@+id/release_date"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        tools:text="Release Date 3/5/2016" />
+
+    <TextView
+        android:id="@+id/movie_detail"
+        android:layout_marginTop="20dp"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textIsSelectable="true"
+        tools:context="udacity.dvik.popularmovies.MovieDetailFragment" />
+</LinearLayout>

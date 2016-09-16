@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="udacity.dvik.popularmovies">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -25,6 +25,14 @@
             android:label="@string/title_movie_detail"
             android:parentActivityName=".MovieListActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="udacity.dvik.popularmovies.MovieListActivity" />
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MovieListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="udacity.dvik.popularmovies.MovieListActivity" />
