@@ -17,4 +17,8 @@ public interface MovieAPI {
 
     @GET("movie/top_rated")
     Call<MovieResponseModel> getTopRatedMovies(@Query("api_key") String apiKey);
+
+    /*@GET("/movie/{id}/reviews")
+    Call<List<Repo>> listRepos(@Path("user") String user);*/
+
 }

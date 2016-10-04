@@ -55,6 +55,9 @@ public class MovieDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.movie_detail, container, false);
 
         if (movie != null) {
+            Picasso.with(getActivity())
+                    .load("http://image.tmdb.org/t/p/w342/"+movie.getPosterPath())
+                    .into((ImageView)rootView.findViewById(R.id.thumb_image_detail));
             ((TextView) rootView.findViewById(R.id.movie_detail)).setText(movie.getOverview());
             ((TextView) rootView.findViewById(R.id.rating)).setText(String.format("%s%s", getString(R.string.rating), String.valueOf(movie.getVoteAverage())));
             ((TextView) rootView.findViewById(R.id.release_date)).setText(String.format("%s%s", getString(R.string.release), movie.getReleaseDate()));

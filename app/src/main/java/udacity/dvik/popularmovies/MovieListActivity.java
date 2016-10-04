@@ -53,11 +53,15 @@ public class MovieListActivity extends AppCompatActivity {
 
         View recyclerView = findViewById(R.id.movie_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
 
         if (findViewById(R.id.movie_detail_container) != null) {
             mTwoPane = true;
+
         }
+
+        setupRecyclerView((RecyclerView) recyclerView);
+
+
     }
 
     private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
@@ -97,7 +101,7 @@ public class MovieListActivity extends AppCompatActivity {
             public void onResponse(Call<MovieResponseModel> call, Response<MovieResponseModel> response) {
                 progressBar.setVisibility(View.GONE);
                 List<MovieModel> movies = response.body().getResults();
-                recyclerView.setAdapter(new MovieAdapter(movies, MovieListActivity.this));
+                recyclerView.setAdapter(new MovieAdapter(movies, MovieListActivity.this, mTwoPane));
 
             }
 
