@@ -37,6 +37,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="udacity.dvik.popularmovies.MovieListActivity" />
         </activity>
+        <provider
+            android:authorities="@string/content_authority"
+            android:name=".data.FavoritesProvider"
+            android:exported="false"
+            android:syncable="true"/>
     </application>
 
 </manifest>

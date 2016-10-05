@@ -64,24 +64,20 @@ public class MovieModel implements Parcelable{
     public MovieModel() {
     }
 
-    public MovieModel(String posterPath, Boolean adult, String overview, String releaseDate, List<Integer> genreIds, Integer id, String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity, Integer voteCount, Boolean video, Double voteAverage) {
+    public MovieModel(String posterPath, String overview, String releaseDate, Integer id, String originalTitle, String originalLanguage, String title, String backdropPath,Double voteAverage) {
         this.posterPath = posterPath;
-        this.adult = adult;
         this.overview = overview;
         this.releaseDate = releaseDate;
-        this.genreIds = genreIds;
         this.id = id;
         this.originalTitle = originalTitle;
         this.originalLanguage = originalLanguage;
         this.title = title;
         this.backdropPath = backdropPath;
-        this.popularity = popularity;
-        this.voteCount = voteCount;
-        this.video = video;
         this.voteAverage = voteAverage;
     }
 
     protected MovieModel(Parcel in) {
+        id = in.readInt();
         posterPath = in.readString();
         overview = in.readString();
         releaseDate = in.readString();
@@ -363,6 +359,7 @@ public class MovieModel implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(posterPath);
         parcel.writeString(overview);
         parcel.writeString(releaseDate);

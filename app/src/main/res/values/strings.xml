@@ -7,16 +7,18 @@
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_select_sort_order">Select Sort Order</string>
-    <string name="rating">"Rating "</string>
-    <string name="release">"Release Date "</string>
     <string name="settings">Settings</string>
+    <string name="removeFav">Remove from favorite</string>
+    <string name="setFav">SET FAVORITE</string>
     <string-array name="pref_example_list_titles">
         <item>Popularity</item>
         <item>Top Rated</item>
+        <item>Favorites</item>
     </string-array>
     <string-array name="pref_example_list_values">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
-
+    <string name="content_authority">udacity.dvik.popularmovies.data.app</string>
 </resources>
