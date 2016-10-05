@@ -44,7 +44,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorAccent"
                 android:padding="10dp"
-                android:text="VIEW TRAILER"
+                android:text="@string/view_trailer"
                 android:textColor="#FFFFFF" />
 
 
@@ -55,7 +55,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorAccent"
                 android:padding="10dp"
-                android:text="SET FAVORITE"
+                android:text="@string/set_favorite"
                 android:textColor="#FFFFFF" />
 
         </LinearLayout>

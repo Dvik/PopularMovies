@@ -21,4 +21,8 @@
         <item>2</item>
     </string-array>
     <string name="content_authority">udacity.dvik.popularmovies.data.app</string>
+    <string name="author">Author</string>
+    <string name="review">Review</string>
+    <string name="view_trailer">VIEW TRAILER</string>
+    <string name="set_favorite">SET FAVORITE</string>
 </resources>
