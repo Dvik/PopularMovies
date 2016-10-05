@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,6 +31,8 @@ import udacity.dvik.popularmovies.API.MovieAPI;
 import udacity.dvik.popularmovies.data.FavoritesContract;
 import udacity.dvik.popularmovies.model.MovieModel;
 import udacity.dvik.popularmovies.model.MovieResponseModel;
+import udacity.dvik.popularmovies.model.ReviewModel;
+import udacity.dvik.popularmovies.model.ReviewsResponseModel;
 import udacity.dvik.popularmovies.model.VideoModel;
 import udacity.dvik.popularmovies.model.VideoResponseModel;
 import udacity.dvik.popularmovies.rest.MovieDataClient;
@@ -43,7 +48,7 @@ public class MovieDetailFragment extends Fragment {
 
     private MovieModel movie;
     private Button favButton;
-    private Button viewTrailer;
+    private RecyclerView recyclerView;
 
     public MovieDetailFragment() {
     }
@@ -83,7 +88,10 @@ public class MovieDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.rating)).setText(String.valueOf(movie.getVoteAverage()));
             ((TextView) rootView.findViewById(R.id.release_date)).setText(movie.getReleaseDate());
             favButton = ((Button) rootView.findViewById(R.id.fav_btn));
-            viewTrailer = (Button) rootView.findViewById(R.id.view_trailer);
+            Button viewTrailer = (Button) rootView.findViewById(R.id.view_trailer);
+            recyclerView = (RecyclerView) rootView.findViewById(R.id.reviews_list);
+            LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(layoutManager);
 
             String mSelectionClauseQuery = FavoritesContract.FavoritesEntry.COLUMN_ID + "= ?";
             String[] mSelectionArgsQuery = {String.valueOf(movie.getId())};
@@ -125,12 +133,11 @@ public class MovieDetailFragment extends Fragment {
                 }
             });
 
-            final MovieAPI apiService =
-                    MovieDataClient.getClient().create(MovieAPI.class);
-
             viewTrailer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    MovieAPI apiService =
+                            MovieDataClient.getClient().create(MovieAPI.class);
                     Call<VideoResponseModel> call = apiService.getAllVideos(String.valueOf(movie.getId()),Constants.API_KEY);
                     call.enqueue(new Callback<VideoResponseModel>() {
                         @Override
@@ -160,6 +167,21 @@ public class MovieDetailFragment extends Fragment {
                 }
             });
 
+            MovieAPI apiService =
+                    MovieDataClient.getClient().create(MovieAPI.class);
+            Call<ReviewsResponseModel> call = apiService.getAllReviews(String.valueOf(movie.getId()),Constants.API_KEY);
+            call.enqueue(new Callback<ReviewsResponseModel>() {
+                @Override
+                public void onResponse(Call<ReviewsResponseModel> call, Response<ReviewsResponseModel> response) {
+                    List<ReviewModel> reviewModels = response.body().getReviewModels();
+                    recyclerView.setAdapter(new ReviewAdapter(reviewModels));
+                }
+
+                @Override
+                public void onFailure(Call<ReviewsResponseModel> call, Throwable t) {
+
+                }
+            });
 
         }
 

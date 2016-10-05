@@ -10,6 +10,6 @@ public class Constants {
 
     public static final String BASE_PIC_URL = "http://image.tmdb.org/t/p/w185/";
 
-    public static final String API_KEY = "28ea1ccfd5d762c28580b8fa3569a18a";
+    public static final String API_KEY = "";
 
 }
